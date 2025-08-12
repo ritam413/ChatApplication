@@ -22,11 +22,11 @@ app.use(cookieParser());
 
 // here are the routes of the backend , it is good practise to put my routes import like this 
 import authRoutes from './Routes/auth.routes.js'
-//!star from 1:07:28 jsust rewind a bit and see the start of message routes
 import messageRoutes from './Routes/message.routes.js'
+import userRoutes from './Routes/user.routes.js'
 
 app.use('/api/auth', authRoutes)
 app.use('/api/messages',messageRoutes)
-
+app.use('/api/users',userRoutes)
 
 export {app}
