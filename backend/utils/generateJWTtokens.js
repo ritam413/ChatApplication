@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken"
 import {ACCESS_TOKEN_EXPIRY,ACCESS_TOKEN_SECRET,NODE_ENV} from '../envVariables.js'
 
-const generateTokenAndSetCookie = (userID, res)=>{
+const generateTokenAndSetCookie = (userId, res)=>{
     const token = jwt.sign(
-        {userID},ACCESS_TOKEN_SECRET,{expiresIn:ACCESS_TOKEN_EXPIRY}
+        {userId},ACCESS_TOKEN_SECRET,{expiresIn:ACCESS_TOKEN_EXPIRY}
     )
 
     res.cookie('jwt',token,{
