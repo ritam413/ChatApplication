@@ -1,0 +1,20 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.40)),
+    url('https://images.squarespace-cdn.com/content/5a46a64b90badea8b8bb0818/1684536692108-MJ0HANXU8LZ3B2W9SJO0/FAB+Doodle+Poster+doodles.jpg?format=1500w&content-type=image%2Fjpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* height: 100vh; */
+}
+
+/* https://miro.medium.com/v2/1*bQxeODJVxjSOLWmWBofdpw.jpeg */
+
+/* https://images.squarespace-cdn.com/content/5a46a64b90badea8b8bb0818/1684536692108-MJ0HANXU8LZ3B2W9SJO0/FAB+Doodle+Poster+doodles.jpg?format=1500w&content-type=image%2Fjpeg */
