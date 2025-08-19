@@ -6,4 +6,11 @@ export default defineConfig({
   plugins: [react(),
     tailwindcss(),
   ],
+  server:{
+    '/api':{
+      target:'http://localhost:8000/api',
+      changeOrigin:true,
+      secure:false,
+    },
+  },
 })

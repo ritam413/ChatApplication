@@ -4,8 +4,8 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import {uploadResultonCloudinary} from '../utils/cloudinary.js'
 import bcrypt from 'bcrypt'
 import generateTokenAndSetCookie from '../utils/generateJWTtokens.js';
-import { profile } from 'console';
-
+import jwt from "jsonwebtoken"
+import {ACCESS_TOKEN_SECRET} from '../envVariables.js'
 const registerUser = asyncHandler(async (req, res) => {
     try {
         const { fullname, username, password, confirmPassword, gender } = req.body
@@ -93,10 +93,11 @@ const registerUser = asyncHandler(async (req, res) => {
             await newUser.save()
     
             const userWithoutPassword = await User.findById(newUser._id).select('-password');
-    
+            const token = jwt.sign({_id:newUser._id},ACCESS_TOKEN_SECRET,{expiresIn:'7d'},)
             res.status(201).json({ 
                 message: 'User created successfully' ,
-                data:userWithoutPassword
+                data:userWithoutPassword,
+                token   
             })
         }else{
             res.status(400).json({ message: 'Invalid User Data' })
@@ -135,9 +136,10 @@ const loginUser = async (req, res) => {
         }
 
         generateTokenAndSetCookie(user._id, res)
-
+        const token = jwt.sign({ _id: user._id }, ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
         res.status(200).json({ message: 'User logged in successfully',
-        data:user
+        data:user,
+        token:token
         })
 
     } catch (error) {

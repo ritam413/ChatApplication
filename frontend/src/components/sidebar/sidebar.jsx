@@ -1,24 +1,29 @@
-import React from 'react'
 import SearchInput from './SerachInput.jsx'
 import Conversations from './conversations.jsx'
-import { LogOut } from 'lucide-react';
+import {LogOutButton} from './LogoutBtn.jsx'
+import ProfileIcon from './profileIcon.jsx'
+import { useViewStore } from '../../zustand/view.store.js'
 
 const Sidebar = () => {
+  const setView = useViewStore((state) => state.setView)
   return (
     <>
     <div className='flex flex-col h-full'>
-      <h2 className='label-text flex justify-start pl-6
-      pt-2 text-xl '>Chats</h2>
-      <div className='border-r border-slate-500 p-4 flex flex-col flex-grow '>
-
-        <SearchInput />
+     
+      <div className='border-r border-slate-500 p-4 flex flex-col flex-grow h-full '>
+       <h2 className='label-text flex justify-start pl-6
+      pt-2 text-2xl text-white font-semibold '> Chats </h2>
+        <SearchInput  />
 
         <div className='divider px-3'></div>
+        <div className='overflow-auto'>
+          <Conversations  />
+        </div>
 
-        <Conversations />
+       <div className='mt-auto p-4   font-bold'>
+          <ProfileIcon onIconClick = {()=>setView('profile')} />
+          <LogOutButton />
 
-       <div className='mt-auto text-white font-bold'>
-          <LogOut />
         </div>
       </div>
     </div>

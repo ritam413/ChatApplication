@@ -1,15 +1,17 @@
 import Messages from './Messages.jsx'
 import MessagesInput from './MessageInput.jsx'
 import { TiMessages } from 'react-icons/ti';
-
+import ProfilePage from '../sidebar/profile.jsx';
 
 function MessageContainer() {
-  const noChatSelected = false; // renamed to avoid conflict
+  const noChatSelected = true; // renamed to avoid conflict
 
   return (
     <div className='md:min-w-[450px] flex flex-col h-full'>
       {noChatSelected ? (
-        <NoChatPlaceholder />
+        <>
+          <NoChatPlaceholder />
+        </>
       ) : (
         <>
           {/* Header */}
@@ -19,6 +21,7 @@ function MessageContainer() {
           </div>
           <Messages />
           <MessagesInput />
+
         </>
       )}
     </div>

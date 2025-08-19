@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename)
 const app = express();
 
 app.use(cors({
-    origin:process.env.CORS_ORGIGIN,
+    origin:"http://localhost:5173",
     credentials:true,
 }))
 
@@ -24,6 +24,8 @@ app.use(cookieParser());
 import authRoutes from './Routes/auth.routes.js'
 import messageRoutes from './Routes/message.routes.js'
 import userRoutes from './Routes/user.routes.js'
+
+
 
 app.use('/api/auth', authRoutes)
 app.use('/api/messages',messageRoutes)
