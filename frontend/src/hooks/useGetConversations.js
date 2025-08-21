@@ -1,11 +1,10 @@
 import chalk from 'chalk'
 import  { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-
 const useGetConversations = () => {
     const [loading,setLoading] = useState(false)
-    const [conversation , setConversation] = useState([])   
-
+    const [conversation , setConversation] = useState([])  
+     
     useEffect(()=>{
         const getConversation = async ()=>{
             setLoading(true)
@@ -15,7 +14,7 @@ const useGetConversations = () => {
                 if(!storedData) throw new Error("No User Logged in ")
 
                 const token = JSON.parse(storedData).token
-                console.log('Token: ',token)
+                // console.log('Token: ',token)
                 if(!token) throw new Error("No Token found")
 
                 const res = await fetch('http://localhost:8000/api/users/',{

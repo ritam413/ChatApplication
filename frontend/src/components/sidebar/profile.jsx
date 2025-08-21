@@ -41,7 +41,7 @@ const ProfilePage = () => {
               <img src={user.profilepic} alt={`${user.fullName} profile picture`} />
             </div>
           </div>
-          <h2 className="text-3xl font-bold">{user.fullName}</h2>
+          <h2 className="text-3xl font-bold">{user.fullname}</h2>
           <p className="text-base-content/60">{user.username}</p>
         </div>
 

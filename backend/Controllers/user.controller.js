@@ -1,29 +1,7 @@
-// import chalk from "chalk"
-// import User from "../models/user.model.js";
-// export const getUsersForSideBar = async (req, res) => {
-//     try {
-//         const loggedInUserId =  req.user._id;
-        
-//         const allUser = await User.find({_id:loggedInUserId})
-
-//         const filteredUserExcludingSender = await User.find({ _id: { $ne: loggedInUserId } })
-
-        
-//         console.log(chalk.green(filteredUserExcludingSender))
-//         filteredUserExcludingSender.forEach((user) => {
-//             if(user.fullname === 'undefined') console.log(user._id)
-//             console.log(chalk.blue(`UserName:${user.fullname}\t ProfilePic:${user.profilepic}\n`))})
-
-//         res.status(200).json(filteredUserExcludingSender)
-
-//     } catch (error) {
-//         console.log(chalk.underline('Error in getMessages of message.controller:  ', error.message))
-//         res.status(500).json({ message: 'Error Getting SideUser,Internal Server Error in user.controler.js' })
-//     }
-// }
-
-
 import User from "../models/user.model.js";
+import { uploadResultonCloudinary } from '../utils/cloudinary.js'
+import { asyncHandler } from '../utils/asyncHandler.js'
+
 
 export const getUsersForSideBar = async (req, res) => {
 	try {
@@ -37,3 +15,47 @@ export const getUsersForSideBar = async (req, res) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+export const updateUserProfile = asyncHandler(async (req, res) => {
+	const userId = req.user._id;
+	const { fullname, gender, description } = req.body;
+
+	const user = await User.findById(userId);
+	if (!user) return res.status(404).json({ message: 'User Not Found' })
+
+	const changes = {}; // store what changed
+
+	if (fullname && fullname !== user.fullname) {
+		changes.fullname = { old: user.fullname, new: fullname };
+		user.fullname = fullname;
+	}
+
+	if (description && description !== user.description) {
+		changes.description = { old: user.description, new: description };
+		user.description = description;
+	}
+
+	if (gender && gender !== user.gender) {
+		changes.gender = { old: user.gender, new: gender };
+		user.gender = gender;
+	}
+
+	if (req.file) {
+		const localFilePath = req.file.path;
+		const cloudinaryUrl = await uploadResultonCloudinary(localFilePath);
+		if (cloudinaryUrl ) {
+			if(cloudinaryUrl !== user.profilepic){
+				changes.profilepic = { message:"ProfilePicture Updated Successfully"};
+				user.profilepic = cloudinaryUrl;
+			}
+		}
+	}
+	
+	await user.save()
+
+	res.status(200).json({
+		message: 'Profile updated successfully',
+		changes,
+	})
+
+})

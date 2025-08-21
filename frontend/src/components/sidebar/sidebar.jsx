@@ -3,9 +3,11 @@ import Conversations from './conversations.jsx'
 import {LogOutButton} from './LogoutBtn.jsx'
 import ProfileIcon from './profileIcon.jsx'
 import { useViewStore } from '../../zustand/view.store.js'
-
+import { useUserStore } from '../../zustand/user.store.js'
 const Sidebar = () => {
   const setView = useViewStore((state) => state.setView)
+
+ 
   return (
     <>
     <div className='flex flex-col h-full'>
@@ -20,10 +22,13 @@ const Sidebar = () => {
           <Conversations  />
         </div>
 
-       <div className='mt-auto p-4   font-bold'>
-          <ProfileIcon onIconClick = {()=>setView('profile')} />
-          <LogOutButton />
-
+       <div className='mt-auto p-4  flex-col    font-bold'>
+         <div className=''> 
+            <ProfileIcon onIconClick = {()=>setView('profile')} />
+          </div>
+         
+            <LogOutButton />
+         
         </div>
       </div>
     </div>

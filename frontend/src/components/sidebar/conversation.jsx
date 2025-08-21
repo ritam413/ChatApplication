@@ -1,12 +1,32 @@
-import React from 'react'
 
-function Conversation({fullname, profilepic ,lastIdx}) {
+import useConversation from '../../zustand/useConversation';
+import Conversations from './conversations';
+
+function Conversation({ _id, fullname, profilepic, lastIdx }) {
+
+    const setSelectedConversation = useConversation(state => state.setSelectedConversation);
+    const selectedConversation = useConversation(state => state.selectedConversation);
+
+    const conversationData = { _id, fullname, profilepic };
+
+    const isSelected = selectedConversation?._id === _id; // or use a unique _id
+
+    // console.log("Selected:", selectedConversation?._id, "Current:", _id)
+
     return (
         <>
-            <div className='flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer'>
-				<div className='avatar online'>
-					<div className='w-12 rounded-full'>
-						<img
+            <div className={`flex gap-2 items-center hover:bg-sky-300 rounded p-2 py-1 cursor-pointer ${isSelected ? 'bg-sky-500' : 'hover:bg-sky-300'}`
+            }
+                // onClick={() => setSelectedConversation(conversationData)}
+                onClick={() => {
+                    if(!isSelected) setSelectedConversation(conversationData)
+                    else setSelectedConversation(null)
+                }}
+
+            >
+                <div className='avatar avatar-online'>
+                    <div className='w-12 rounded-full'>
+                        <img
                             src={profilepic}
                             alt='user avatar'
                         />
