@@ -41,7 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
         //!getting the localpath in string format via multer 
         const avatarLocalPath = req.file
         console.log(req.file)
-        console.log('Uploaded file path:', avatarLocalPath?.path);
+        // console.log('Uploaded file path:', avatarLocalPath?.path);
         
         //! Uploading ProfilePic either ( cloudinary or Default-API ) && then uploadin profile Picture
         let profilepic
@@ -60,10 +60,10 @@ const registerUser = asyncHandler(async (req, res) => {
                 }else{
                     profilepic = `https://avatar.iran.liara.run/public/girl?username=${username}`
                 }
-                console.log(chalk.italic.bold.greenBright("Upload Success!!!, User Created"))
+                console.log(chalk.italic.bold.greenBright("Upload Success!!! (Default Avatar), User Created"))
             }else{
                 profilepic = uploadResult    
-                console.log(chalk.italic.bold.greenBright("Upload Success!!!, User Created"))
+                console.log(chalk.italic.bold.greenBright("Upload Success!!! (User Input Avatar), User Created"))
             }
             // profilepic = uploadResult?.secure_url
             //     ? uploadResult
@@ -113,7 +113,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = async (req, res) => {
     //? res.send('Login user');
-    console.log(req.body);
+    // console.log(req.body);
     try {
         const {username,password}=req.body
         //? console.log(chalk.magenta(`Username: ${username}, Password: ${password}`))

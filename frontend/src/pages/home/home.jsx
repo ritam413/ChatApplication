@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
   <>
-   <div className='flex  rounded-lg w-11/12  min-h-11/12overflow-hidden bg-gray-400/30 bg-clip-padding  backdrop-filter backdrop-blur-lg bg-opacity-0 justify-between h-max '>
+   <div className='flex  rounded-lg w-11/12  min-h-10/12 overflow-hidden bg-gray-400/30 bg-clip-padding  backdrop-filter backdrop-blur-lg bg-opacity-0 justify-between h-max '>
 			<div className="w-1/3   h-screen max-h-fit   ">
         <Sidebar />
       </div>

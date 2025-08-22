@@ -3,14 +3,21 @@ import Conversation from "../models/conversation.model.js"
 import Message from "../models/messages.model.js"
 import { uploadResultonCloudinary } from "../utils/cloudinary.js"
 import mongoose from "mongoose"
+import User from "../models/user.model.js"
+
+
 const sendMessages = async (req, res) => {
-    console.log(chalk.blueBright('Message sent by: ', req.params.id))
+    // console.log(chalk.blueBright('Message sent by: ', req.params.id))
 
     try {
 
         //? (lets make this supprot media) const {message} = req.body;
         const  receiverId  = req.params.id;
         const senderId  = req.user._id;
+
+       
+
+       
 
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] }
@@ -56,9 +63,19 @@ const sendMessages = async (req, res) => {
 
         conversation.lastMessage = newMessages._id
         await Promise.all([conversation.save(),newMessages.save()]);
+
+
         // await conversation.save();
         // await newMessages.save();
         
+
+
+        // console.log("Message sent By ",newMessages.message)
+
+        const sender = await User.findById(senderId).select('fullname')
+        const reciever = await User.findById(receiverId).select('fullname')
+        console.log(`Message: ${newMessages.message} sent by ${sender.fullname} to ${reciever.fullname} `)
+
         //! SOCKET IO FUNCTIONLITY TO MAKE IT REAL TIME
 
         return res.status(200).json(newMessages)
@@ -80,6 +97,8 @@ const getMessages = async (req, res) => {
         if(!conversation) return res.status(404).json({ message: 'Conversation Not Found' })
         
         const messages = conversation.messages   
+
+        console.log("Message Recieved was: ",messages)
 
         res.status(200).json(messages)
     } catch (error) {
