@@ -5,17 +5,13 @@ import { useUserStore } from '../../zustand/user.store.js'
 function Conversations() {
 	
 	const setView = useViewStore((state) => state.setView)
-
-	
-
-
 	const { loading, conversation } = useGetConversations();
-	console.log(conversation)
+	// console.log(conversation)
 
 	return (
 		<div className='py-2 flex flex-col overflow-y-scroll'>
 			{conversation.map((conversation, idx) => (
-				console.log(conversation.length),
+				// console.log(conversation.length),
 				<Conversation
 					key={conversation._id}
 					conversation={conversation}

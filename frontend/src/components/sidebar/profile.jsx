@@ -5,8 +5,6 @@ import { IoArrowBack } from "react-icons/io5"; // Example icon
 import { useState } from 'react';
 
 
-
-
 const ProfilePage = () => {
   const setView = useViewStore((state) => state.setView)
   const user = useUserStore((state) => state.user)
@@ -91,3 +89,19 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

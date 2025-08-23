@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import connectDB from './DB/connectDB.js';
 import {app} from './app.js'
 import chalk from 'chalk';
+import { server } from './socket/socket.js';
 
 dotenv.config({ path: './backend/.env' });
 
@@ -13,10 +14,10 @@ app.get('/', (req, res) => {
 
 connectDB()
 .then(()=>{
-    const server = app.listen(PORT,()=>{
+    const Server = server.listen(PORT,()=>{
         console.log(chalk.green(`Server is Running at PORT : ${process.env.PORT} `))
     })
-    server.on('error',error=>{
+    Server.on('error',error=>{
         console.log(chalk.red('ERROR: ',error))
     })
 })

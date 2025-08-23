@@ -1,4 +1,5 @@
 
+import { useSocketContext } from '../../Context/SocketContext';
 import useConversation from '../../zustand/useConversation';
 import Conversations from './conversations';
 
@@ -7,6 +8,13 @@ function Conversation({ _id, fullname, profilepic, lastIdx }) {
     const setSelectedConversation = useConversation(state => state.setSelectedConversation);
     const selectedConversation = useConversation(state => state.selectedConversation);
 
+    const { onlineUsers } = useSocketContext();
+    // console.log("Online Users:", onlineUsers);
+
+    const isOnline = onlineUsers.includes(_id.toString());
+    // console.log("Is Online?", fullname, isOnline);
+    // console.log("Is ONline users: ",isOnline)
+    
     const conversationData = { _id, fullname, profilepic };
 
     const isSelected = selectedConversation?._id === _id; // or use a unique _id
@@ -19,13 +27,13 @@ function Conversation({ _id, fullname, profilepic, lastIdx }) {
             }
                 // onClick={() => setSelectedConversation(conversationData)}
                 onClick={() => {
-                    if(!isSelected) setSelectedConversation(conversationData)
+                    if (!isSelected) setSelectedConversation(conversationData)
                     else setSelectedConversation(null)
                 }}
 
             >
-                <div className='avatar avatar-online'>
-                    <div className='w-12 rounded-full'>
+                <div className={`avatar ${isOnline ? 'avatar-online' : ''}`}>
+                    <div className={`w-12 rounded-full `}>
                         <img
                             src={profilepic}
                             alt='user avatar'

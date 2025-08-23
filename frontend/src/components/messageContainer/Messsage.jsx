@@ -3,8 +3,8 @@ import { extractTime } from '../../utils/extractTime.js';
 import useConversation from '../../zustand/useConversation.js';
 import { useUserStore } from '../../zustand/user.store.js';
 const Messsage = ({message}) => {
-  const {profilepic} = useUserStore((state) => state.user)
   const {authUser} = useAuthContext();
+  const {profilepic} = useUserStore((state) => state.user)
   const {selectedConversation} = useConversation();
   const fromMe = (message.senderId === authUser.data._id)
   const chatClassname = fromMe ? 'chat chat-end' : 'chat chat-start';
@@ -12,8 +12,8 @@ const Messsage = ({message}) => {
   const bublleBgColour = fromMe ? 'bg-red-500' : 'bg-gray-200'
   const bubbleTextColor = fromMe ? 'text-white' : 'text-gray-950';
   const formattedTime = extractTime(message.createdAt)
-  console.log('Selected Conversation: ', selectedConversation);
-  console.log(fromMe)
+  // console.log('Selected Conversation: ', selectedConversation);
+  // console.log(fromMe)
 
   return (
     <>
@@ -42,3 +42,43 @@ const Messsage = ({message}) => {
 }
 
 export default Messsage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

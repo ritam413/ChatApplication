@@ -1,33 +1,3 @@
-// import React from 'react'
-// import Messsage from './Messsage.jsx'
-// import useGetMessage from '../../hooks/useGetMessage.js'
-// import MessageSkeleton from '../Skeletons/MessageSkeleton.jsx'
-// const Messages = () => {
-//   const { messages , loading } = useGetMessage();
-
-//   return (
-//     <div className="px-4 flex-1 overflow-auto ">
-//       {loading && [...Array(3)].map((_, idx) => (<MessageSkeleton key={idx} />))}
-
-//       {!loading  && messages.length === 0 && (
-//         <p className="text-center">Send a message To Start the Conversation</p>
-//       )}
-
-//       {!loading && messages.length > 0 && (
-//         messages.map((msg) => (
-//           <Messsage key={msg._id} message = {msg} />
-//         ))
-//       )}
-    
-//     </div>
-//   )
-// }
-
-// export default Messages
-
-
-
-import React from "react";
 import Messsage from "./Messsage.jsx";
 import useGetMessage from "../../hooks/useGetMessage.js";
 import MessageSkeleton from "../Skeletons/MessageSkeleton.jsx";

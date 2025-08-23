@@ -98,7 +98,7 @@ const getMessages = async (req, res) => {
         
         const messages = conversation.messages   
 
-        console.log("Message Recieved was: ",messages)
+        // console.log("Message Recieved was: ",messages)
 
         res.status(200).json(messages)
     } catch (error) {

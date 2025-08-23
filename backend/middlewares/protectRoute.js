@@ -33,7 +33,7 @@ const protectRoute = async (req, res, next) => {
             return res.status(401).json({ message: 'User Not Found' })
         }
         // console.log("Decoded: ",decoded)
-        console.log('User Found:', user.username);
+        // console.log('User Found:', user.username);
         
         req.user = decoded;
 
