@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BsSend } from 'react-icons/bs'
 import { FaPaperclip } from "react-icons/fa6";
 import useSendMessages from '../../hooks/useSendMessages'
+
 const MessageInput = () => {
 
 	const [message, setMessage] = useState("")

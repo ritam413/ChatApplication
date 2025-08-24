@@ -3,6 +3,7 @@ import useGetMessage from "../../hooks/useGetMessage.js";
 import MessageSkeleton from "../Skeletons/MessageSkeleton.jsx";
 import { useEffect, useState ,useRef} from "react";
 import {formatDateHeading} from '../../utils/extractTime.js'
+import PreviewModal from "./PreviewModal.jsx";
 
 const Messages = () => {
   const { messages, loading } = useGetMessage();
@@ -10,8 +11,20 @@ const Messages = () => {
   
   const lastMessageRef = useRef()
 
+  //State Controlling Preview Modal
+  const [modalFiles, setModalFiles] = useState([]);
+  const [modalStartIndex, setModalStartIndex] = useState(null);
+
   useEffect(()=>{lastMessageRef.current?.scrollIntoView({behavior:"smooth"})},[messages])
 
+  const handlePreiwOpen = (files, startIndex) => {
+    setModalFiles(files);
+    setModalStartIndex(startIndex);
+  };
+  const handlePreiwClose = () => {
+    setModalStartIndex(null);
+    setModalFiles([]);
+  }
   return (
     <div className="px-4 flex-1 overflow-auto">
       {loading &&
@@ -48,8 +61,18 @@ const Messages = () => {
               <div 
               ref={index === messages.length - 1 ? lastMessageRef : null}
               >
-              <Messsage message={msg} />
+              <Messsage 
+              onPreviewOpen ={handlePreiwOpen}
+              message={msg} 
+              />
               </div>
+              {/* Preview Modal */}
+              <PreviewModal
+                isOpen={modalStartIndex !== null}
+                files={modalFiles}
+                startIndex={modalStartIndex}
+                onClose={handlePreiwClose}
+              />
             </div>
           );
         })}

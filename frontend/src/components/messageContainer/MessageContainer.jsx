@@ -3,11 +3,19 @@ import MessagesInput from './MessageInput.jsx'
 import { TiMessages } from 'react-icons/ti';
 import useConversation from '../../zustand/useConversation.js';
 import { useUserStore } from '../../zustand/user.store.js';
+import { useSocketContext } from '../../Context/SocketContext.jsx';
 
 function MessageContainer() {
   const user = useUserStore((state) => state.user);
 
+  const {onlineUsers} = useSocketContext();
   const {selectedConversation,setSelectedConversation}=useConversation();
+
+  const id = selectedConversation?._id;
+  const isOnline = onlineUsers?.includes(id)
+  console.log("Selected Conversation Id", selectedConversation?._id);
+  console.log("Is Online?", isOnline);
+
   return (
     <div className='md:min-w-[450px] flex flex-col h-full'>
       {!selectedConversation ? (
@@ -25,8 +33,13 @@ function MessageContainer() {
                 </div>
               </div>
             </span>
+            <div className='flex flex-col'>
             <span className='text-gray-100 font-bold'>{selectedConversation.fullname}</span>
+            <div className={`text-xs justify-start flex font-semibold   ${isOnline?"text-green-400  ":"text-gray-400"}`}>{isOnline?"Online":"Offline"}</div>
+            </div>
           </div>
+          
+          {/* Header */}
           <Messages />
           <MessagesInput />
 
